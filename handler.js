@@ -30,35 +30,39 @@ auth.onAuthStateChanged(user =>{
   }
 })
 
-//register
-    const registerForm = document.querySelector('#registerForm');
-    registerForm.addEventListener('submit', async (e) => {
-    
-        //get user info
-        const email = registerForm['reg-email'].value;
-        const password = registerForm['reg-password'].value;
-        const userBirthdate = new Date(registerForm['reg-birthdate'].value);
-        e.preventDefault(); 
-        try {
-            // Create user in Firebase Authentication
-            const cred = await createUserWithEmailAndPassword(auth, email, password);
-        
-            // Save additional user data to Firestore
-            await addDoc(collection(db, "users"), {
-              uid: cred.user.uid,
-              email,
-              createdAt: serverTimestamp(),
-              contact: "", 
-              birthdate: userBirthdate,
-              geopoint: null,
-              isMale: true,
-              name: ""
-            });
-        
-          } catch (error) {
-            console.error(error.message);
-          }
-        });
+// Registrasi
+const registerForm = document.querySelector('#registerForm');
+registerForm.addEventListener('submit', async (e) => {
+
+  // Dapatkan informasi pengguna
+  const email = registerForm['reg-email'].value;
+  const password = registerForm['reg-password'].value;
+  const username = registerForm['reg-username'].value;
+  const gender = registerForm['reg-gender'].value;
+  const userBirthdate = new Date(registerForm['reg-birthdate'].value);
+  e.preventDefault();
+  try {
+    // Buat pengguna di Otentikasi Firebase
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+    // Simpan data pengguna tambahan ke Firestore
+    await addDoc(collection(db, "users"), {
+      uid: cred.user.uid,
+      email,
+      username,
+      gender,
+      createdAt: serverTimestamp(),
+      contact: "",
+      birthdate: userBirthdate,
+      geopoint: null,
+      isMale: gender === "male", // Atur isMale berdasarkan nilai gender
+      name: ""
+    });
+
+  } catch (error) {
+    console.error(error.message);
+  }
+});
 
 
     //logout
