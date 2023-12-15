@@ -89,6 +89,7 @@
         <li><a href="#" id="loginLink">Login</a></li>
         <li><a href="userdata.html" id="userLink">User Data</a></li>
         <li><a href="#" id="logoutLink">Logout</a></li>
+        <li><a href="#" id="loc">Location</a></li>
     </ul>
 
     <!-- Popup register -->
@@ -107,6 +108,9 @@
       
             <label for="birthdate">Birth Date:</label>
             <input type="date" id="reg-birthdate" name="birthdate" required>
+
+            <label for="contact">Contact:</label>
+            <input type="text" id="reg-contact" name="contact" required>
 
             <label for="gender">Gender:</label>
             <select id="reg-gender" name="gender" required>
@@ -136,7 +140,6 @@
         <!-- Teks untuk menutup popup -->
         <p><a href="#" onclick="closePopup('loginPopup')">Close</a></p>
     </div>
-
     <script>
         function openPopup(popupId) {
             const popup = document.getElementById(popupId);
